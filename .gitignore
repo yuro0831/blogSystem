@@ -1,0 +1,6 @@
+target/*
+<<<<<<< Updated upstream
+!target/blog-management-system-0.0.1-SNAPSHOT.jar
+=======
+/target/
+>>>>>>> Stashed changes

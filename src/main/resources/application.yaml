@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://dpg-cqkb88rqf0us73c6bk00-a/blog_system
+    username: test_user
+    password: EcQk1IoBvTzGOcprzfYBCCCamm4JvV8E
+  thymeleaf:
+    cache: false    
+    prefix: classpath:/templates/
+  messages:
+    basename: messages
+    encoding: UTF-8
+  jpa:
+<<<<<<< Updated upstream
+    open-in-view: false
+
+env: local
+=======
+    open-in-view: false
+>>>>>>> Stashed changes

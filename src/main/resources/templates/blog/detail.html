@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ブログ詳細</title>
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div th:insert="~{header}"></div> <!-- include -> insertに修正済み -->
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h1 class="card-title" th:text="${blog.title}">ブログタイトル</h1>
+                        <p class="card-text" th:text="${blog.content}">ブログコンテンツ</p>
+                        <p class="card-text"><strong>カテゴリー:</strong> <span class="badge badge-secondary" th:text="${blog.category.nameJa}">カテゴリー名</span></p>
+                        <p class="card-text"><strong>作成者:</strong> <span th:text="${blog.user.username}">作成者名</span></p>
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <p class="card-text mb-0">
+                                <strong>作成日:</strong> 
+                                <span th:text="${#temporals.format(blog.createdAt, 'yyyy/MM/dd')}">作成日</span>
+                            </p>
+                            <div class="d-flex">
+                                <a th:href="@{/blogs/{id}/edit(id=${blog.id})}" class="btn btn-primary mb-2 mr-2">編集</a>
+                                <form th:action="@{/blogs/{id}/delete(id=${blog.id})}" method="post" onsubmit="return confirm('本当に削除してよろしいですか？');">
+                                    <input type="hidden" name="_method" value="delete" />
+                                    <button type="submit" class="btn btn-danger mb-2">削除</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="mt-5">コメント</h2>
+                <ul class="list-group mb-4">
+                    <li class="list-group-item" th:each="comment : ${blog.comments}">
+                        <p th:text="${comment.content}">コメント内容</p>
+                        <p><strong>作成者:</strong> <span th:text="${comment.user.username}">コメント作成者</span></p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <p class="mb-0"><strong>作成日:</strong> <span th:text="${#temporals.format(comment.createdAt, 'yyyy/MM/dd')}">作成日</span></p>
+                            <div class="d-flex">
+                                <a th:href="@{/blogs/{blogId}/comments/{commentId}/edit(blogId=${blog.id}, commentId=${comment.id})}" class="btn btn-sm btn-primary mr-2">編集</a>
+                                <form th:action="@{/blogs/{blogId}/comments/{commentId}/delete(blogId=${blog.id}, commentId=${comment.id})}" method="post">
+                                    <button type="submit" class="btn btn-sm btn-danger">削除</button>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+                <h3 class="mt-5">コメントを投稿</h3>
+                <form th:action="@{/blogs/{id}/comments/create(id=${blog.id})}" th:object="${comment}" method="post">
+                    <div class="form-group">
+                        <textarea id="content" th:field="*{content}" class="form-control"></textarea>
+                        <div th:if="${#fields.hasErrors('content')}" class="text-danger" th:errors="*{content}"></div>
+                    </div>
+                    <div class="form-group text-left">
+                        <button type="submit" class="btn btn-primary">保存</button>
+                    </div>
+                </form>
+
+                <div class="mt-4">
+                    <div>
+                        <a th:href="@{/blogs}" class="btn btn-secondary">ブログ一覧に戻る</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:insert="~{footer}"></div> <!-- include -> insertに修正済み -->
+    <!-- Bootstrap JSと依存関係のCDN -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrap.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: blog-management-system
+    env: java
+    buildCommand: |
+      curl -O https://downloads.apache.org/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.tar.gz
+      tar xzvf apache-maven-3.8.6-bin.tar.gz
+      export M2_HOME=$PWD/apache-maven-3.8.6
+      export PATH=$M2_HOME/bin:$PATH
+      mvn clean package
+    startCommand: "java -jar target/blog-management-system-0.0.1-SNAPSHOT.jar"

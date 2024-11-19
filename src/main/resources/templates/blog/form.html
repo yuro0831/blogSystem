@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ブログ作成/編集</title>
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<<<<<<< Updated upstream
+<div th:include="header"></div>
+<div class="container mt-5">
+    <form th:object="${blog}" th:action="${blog.id == null} ? @{/blogs} : @{/blogs/{id}/edit(id=${blog.id})}" method="post">
+        <div class="form-group">
+            <label for="title">タイトル:</label>
+            <input type="text" id="title" th:field="*{title}" class="form-control"/>
+            <div th:if="${#fields.hasErrors('title')}" class="text-danger" th:errors="*{title}"></div>
+            <div th:if="${titleError}" class="text-danger" th:text="${titleError}"></div>
+        </div>
+        <div class="form-group">
+            <label for="content">コンテンツ:</label>
+            <textarea id="content" th:field="*{content}" class="form-control"></textarea>
+            <div th:if="${#fields.hasErrors('content')}" class="text-danger" th:errors="*{content}"></div>
+        </div>
+        <div class="form-group">
+            <label for="category">カテゴリー:</label>
+            <div th:each="category : ${categories}">
+                <input type="radio" th:field="*{category.id}" th:value="${category.id}" th:text="${category.nameJa}"/> <br>
+            </div>
+            <div th:if="${#fields.hasErrors('category')}" class="text-danger" th:errors="*{category}"></div>
+        </div>
+        <div class="form-group text-left">
+            <button type="submit" class="btn btn-primary">保存</button>
+        </div>
+    </form>
+</div>
+<div th:include="footer :: footer"></div>
+<!-- Bootstrap JS and dependencies CDN -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+=======
+    <!-- header部分を挿入 -->
+    <div th:insert="~{header}"></div>
+
+    <div class="container mt-5">
+        <!-- フォームオブジェクトを指定 -->
+		<form th:object="${blogForm}" th:action="${blogForm.id == null} ? @{/blogs} : @{/blogs/{id}(id=${blogForm.id})}" method="post">
+            <div class="form-group">
+                <label for="title">タイトル:</label>
+                <input type="text" id="title" th:field="*{title}" class="form-control"/>
+                <div th:if="${#fields.hasErrors('title')}" class="text-danger" th:errors="*{title}"></div>
+            </div>
+            <div class="form-group">
+                <label for="content">コンテンツ:</label>
+                <textarea id="content" th:field="*{content}" class="form-control"></textarea>
+                <div th:if="${#fields.hasErrors('content')}" class="text-danger" th:errors="*{content}"></div>
+            </div>
+            <div class="form-group text-left">
+                <button type="submit" class="btn btn-primary">保存</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- footer部分を挿入 -->
+    <div th:insert="~{footer}"></div>
+
+    <!-- Bootstrap JSと依存関係のCDN -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+>>>>>>> Stashed changes
+</body>
+</html>

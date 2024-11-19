@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ブログ一覧</title>
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <!-- header部分の挿入 -->
+    <div th:insert="~{header}"></div>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h1 class="mb-4">ブログ一覧</h1>
+                <div class="mb-4">
+                    <a th:href="@{/blogs/new}" class="btn btn-primary">新しいブログを作成</a>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- ブログリストのループ処理 -->
+                        <div th:each="blog : ${blogs}" class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a th:href="@{/blogs/{id}(id=${blog.id})}" th:text="${blog.title}">ブログタイトル</a>
+                                </h5>
+                                <p class="card-text">
+<<<<<<< Updated upstream
+                                    <small class="text-muted">作成者: <span th:text="${blog.user != null ? blog.user.username : '不明'}">作成者</span></small><br>
+                                    <small class="text-muted">作成日: <span th:text="${#temporals.format(blog.createdAt, 'yyyy/MM/dd')}">作成日</span></small><br>
+                                    <span class="badge badge-secondary" th:text="${blog.category.nameJa}">カテゴリー</span>
+=======
+                                    <small class="text-muted">作成日: 
+                                        <span th:text="${#temporals.format(blog.createdAt, 'yyyy/MM/dd')}"></span>
+                                    </small>
+>>>>>>> Stashed changes
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- footer部分の挿入 -->
+    <div th:insert="~{footer}"></div>
+
+    <!-- Bootstrap JSと依存関係のCDN -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
